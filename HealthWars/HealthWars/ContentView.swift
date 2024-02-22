@@ -17,7 +17,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Welcome to My App")
+                Text("Health Wars")
                     .font(.largeTitle)
                     .padding()
 
