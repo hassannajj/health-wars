@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04EAE1792B8821F2002C2907 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE1782B8821F2002C2907 /* FriendsView.swift */; };
+		04EAE17B2B8821FD002C2907 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE17A2B8821FD002C2907 /* HomeView.swift */; };
+		04EAE17D2B882205002C2907 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE17C2B882205002C2907 /* ProfileView.swift */; };
+		04EAE17F2B88220D002C2907 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE17E2B88220D002C2907 /* SignUpView.swift */; };
+		04EAE1812B882219002C2907 /* TabbedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE1802B882219002C2907 /* TabbedView.swift */; };
 		04FEA2ED2B86B473000AF1C6 /* HealthWarsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FEA2EC2B86B473000AF1C6 /* HealthWarsApp.swift */; };
 		04FEA2EF2B86B473000AF1C6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04FEA2EE2B86B473000AF1C6 /* ContentView.swift */; };
 		04FEA2F12B86B475000AF1C6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04FEA2F02B86B475000AF1C6 /* Assets.xcassets */; };
@@ -34,6 +39,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		04EAE1782B8821F2002C2907 /* FriendsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
+		04EAE17A2B8821FD002C2907 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		04EAE17C2B882205002C2907 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		04EAE17E2B88220D002C2907 /* SignUpView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		04EAE1802B882219002C2907 /* TabbedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbedView.swift; sourceTree = "<group>"; };
 		04FEA2E92B86B473000AF1C6 /* HealthWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04FEA2EC2B86B473000AF1C6 /* HealthWarsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthWarsApp.swift; sourceTree = "<group>"; };
 		04FEA2EE2B86B473000AF1C6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -95,6 +105,11 @@
 		04FEA2EB2B86B473000AF1C6 /* HealthWars */ = {
 			isa = PBXGroup;
 			children = (
+				04EAE1802B882219002C2907 /* TabbedView.swift */,
+				04EAE17E2B88220D002C2907 /* SignUpView.swift */,
+				04EAE17C2B882205002C2907 /* ProfileView.swift */,
+				04EAE17A2B8821FD002C2907 /* HomeView.swift */,
+				04EAE1782B8821F2002C2907 /* FriendsView.swift */,
 				04FEA2EC2B86B473000AF1C6 /* HealthWarsApp.swift */,
 				04FEA2EE2B86B473000AF1C6 /* ContentView.swift */,
 				04FEA2F02B86B475000AF1C6 /* Assets.xcassets */,
@@ -259,8 +274,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04EAE1792B8821F2002C2907 /* FriendsView.swift in Sources */,
+				04EAE17B2B8821FD002C2907 /* HomeView.swift in Sources */,
+				04EAE17D2B882205002C2907 /* ProfileView.swift in Sources */,
 				04FEA2EF2B86B473000AF1C6 /* ContentView.swift in Sources */,
+				04EAE17F2B88220D002C2907 /* SignUpView.swift in Sources */,
 				04FEA2ED2B86B473000AF1C6 /* HealthWarsApp.swift in Sources */,
+				04EAE1812B882219002C2907 /* TabbedView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
