@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0491627A2B9ACDD200F8643D /* CreateInterestsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049162792B9ACDD200F8643D /* CreateInterestsView.swift */; };
+		0491627C2BA3895B00F8643D /* AddFriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0491627B2BA3895B00F8643D /* AddFriendsView.swift */; };
 		04EAE1792B8821F2002C2907 /* FriendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE1782B8821F2002C2907 /* FriendsView.swift */; };
 		04EAE17B2B8821FD002C2907 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE17A2B8821FD002C2907 /* HomeView.swift */; };
 		04EAE17D2B882205002C2907 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04EAE17C2B882205002C2907 /* ProfileView.swift */; };
@@ -39,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		049162792B9ACDD200F8643D /* CreateInterestsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateInterestsView.swift; sourceTree = "<group>"; };
+		0491627B2BA3895B00F8643D /* AddFriendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendsView.swift; sourceTree = "<group>"; };
 		04EAE1782B8821F2002C2907 /* FriendsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsView.swift; sourceTree = "<group>"; };
 		04EAE17A2B8821FD002C2907 /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		04EAE17C2B882205002C2907 /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
@@ -115,6 +119,8 @@
 				04FEA2F02B86B475000AF1C6 /* Assets.xcassets */,
 				04FEA2F22B86B475000AF1C6 /* HealthWars.entitlements */,
 				04FEA2F32B86B475000AF1C6 /* Preview Content */,
+				049162792B9ACDD200F8643D /* CreateInterestsView.swift */,
+				0491627B2BA3895B00F8643D /* AddFriendsView.swift */,
 			);
 			path = HealthWars;
 			sourceTree = "<group>";
@@ -275,9 +281,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				04EAE1792B8821F2002C2907 /* FriendsView.swift in Sources */,
+				0491627C2BA3895B00F8643D /* AddFriendsView.swift in Sources */,
 				04EAE17B2B8821FD002C2907 /* HomeView.swift in Sources */,
 				04EAE17D2B882205002C2907 /* ProfileView.swift in Sources */,
 				04FEA2EF2B86B473000AF1C6 /* ContentView.swift in Sources */,
+				0491627A2B9ACDD200F8643D /* CreateInterestsView.swift in Sources */,
 				04EAE17F2B88220D002C2907 /* SignUpView.swift in Sources */,
 				04FEA2ED2B86B473000AF1C6 /* HealthWarsApp.swift in Sources */,
 				04EAE1812B882219002C2907 /* TabbedView.swift in Sources */,

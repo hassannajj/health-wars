@@ -44,7 +44,7 @@ struct ContentView: View {
                     })
                 }
                     Spacer()
-
+                    
                     NavigationLink(
                         destination: SignUpView(),
                         isActive: $isSignUpActive,
