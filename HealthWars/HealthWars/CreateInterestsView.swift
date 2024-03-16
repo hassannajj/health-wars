@@ -4,6 +4,8 @@
 
 import SwiftUI
 
+
+
 struct CreateInterestsView: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var interestsModel: InterestsModel // Use the data model
@@ -67,8 +69,8 @@ struct CreateInterestsView: View {
               }
 
               Button(action: {
+                  sendInterestDataToBackend() // BACKEND
                   presentationMode.wrappedValue.dismiss()
-                  // Add function to do something w backend
               }) {
                   Text("Save Interests")
                       .foregroundColor(.white)
@@ -85,6 +87,52 @@ struct CreateInterestsView: View {
           // triggering the view refresh
       }
   }
+    
+    
+    func sendInterestDataToBackend() {
+        guard let url = URL(string: "http://localhost:4000/set_interests") else {
+            print("Invalid URL")
+            return
+        }
+        
+        let userData = [
+            "username": UserData.username,
+            "interests": interestsModel.selectedInterests
+        ] as [String : Any]
+        
+        
+        
+    
+        
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: userData) else {
+            print("Error serializing JSON")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                print("Response status code: \(response.statusCode)")
+            }
+            
+            if let data = data {
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("Response data: \(responseString)")
+//                    if responseString == "True" {
+//                    }
+                }
+            }
+        }.resume()
+    }
 }
 
 struct CreateInterestsView_Previews: PreviewProvider {

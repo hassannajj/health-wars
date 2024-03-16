@@ -12,28 +12,21 @@ class FriendsModel: ObservableObject {
     @Published var friends: [Player] // Array of Player instances
     
     init() {
-        // Initialize friends array with some example data
-        self.friends = [
-            Player(name: "Alice", steps: 11040, screen_time: 0.6),
-            Player(name: "Bob", steps: 9456, screen_time: 1.3),
-            Player(name: "You", steps: 8207, screen_time: 2.7),
-            Player(name: "David", steps: 7021, screen_time: 3.6),
-            Player(name: "Eve", steps: 6034, screen_time: 4.1)
-        ]
+        //self.friends  = getLeaderboardDataFromBackend();
+        self.friends = []
     }
 }
 
 struct Player: Identifiable {
     let id = UUID()
     let name: String
-    let steps: Int
-    let screen_time: Float
+    let points: Int
 }
 
 struct FriendsView: View {
-    let mySteps = 8207
+    let myPoints = 200
     @StateObject var friendsModel = FriendsModel() // Initialize the data model
-    
+        
     var body: some View {
         NavigationView{
             
@@ -58,10 +51,7 @@ struct FriendsView: View {
                             Text("\(player.name)")
                                 .font(.body)
                             Spacer()
-                            Text("\(player.steps) steps")
-                                .font(.body)
-                            Spacer()
-                            Text("\(player.screen_time, specifier: "%.1f") hrs") // Format screen time to one decimal place
+                            Text("\(player.points) points")
                                 .font(.body)
                         }
                         .padding()
@@ -77,7 +67,7 @@ struct FriendsView: View {
                 .edgesIgnoringSafeArea(.all)
                 
                 VStack {
-                    Text("You need \(friendsModel.friends.first!.steps - mySteps) steps to reach first place!")
+                    Text("You need \(friendsModel.friends.first!.points - myPoints) points to reach first place!")
                         .font(.body)
                     //                    .foregroundColor(.white)
                         .padding()
@@ -111,6 +101,7 @@ struct FriendsView: View {
             .edgesIgnoringSafeArea(.all)
         }
     }
+
 }
 
 struct Previews_FriendsView_Previews: PreviewProvider {
@@ -118,3 +109,61 @@ struct Previews_FriendsView_Previews: PreviewProvider {
         /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
+
+
+//func getLeaderboardDataFromBackend() -> [Player] {
+//    var playerList : [Player] = []
+//    guard let url = URL(string: "http://localhost:4000/get_leaderboard") else {
+//        print("Invalid URL")
+//        return [];
+//    }
+//
+//    let userData = [
+//        "username": UserData.username,
+//    ] as [String : Any]
+//
+//
+//
+//    guard let jsonData = try? JSONSerialization.data(withJSONObject: userData) else {
+//        print("Error serializing JSON")
+//        return [];
+//    }
+//
+//    var request = URLRequest(url: url)
+//    request.httpMethod = "GET"
+//    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//    request.httpBody = jsonData
+//
+//    URLSession.shared.dataTask(with: request) { data, response, error in
+//        if let error = error {
+//            print("Error: \(error.localizedDescription)")
+//            return
+//        }
+//
+//        if let response = response as? HTTPURLResponse {
+//            print("Response status code: \(response.statusCode)")
+//        }
+//
+//        do {
+//            if let data = data {
+//                if let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Int] {
+//                    // Process the JSON dictionary here
+//                    var itemList: [Player] = []
+//                    for (key, value) in json {
+//                        let item = Player(name: key, points: value)
+//                        itemList.append(item)
+//                    }
+//                    playerList = itemList;
+//                    // Now itemList contains a list of Item objects
+//                    print("Received Item list: \(itemList)")
+//                }
+//            }
+//        }catch
+//        {
+//                        print("Error parsing JSON: \(error.localizedDescription)")
+//                    }
+//
+//        }
+//    .resume()
+//    return playerList;
+//}

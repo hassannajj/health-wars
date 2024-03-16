@@ -9,6 +9,10 @@
 
 import SwiftUI
 
+class UserData {
+    static var username: String = "";
+}
+
 struct ContentView: View {
     @State private var username: String = ""
     @State private var password: String = ""
@@ -24,16 +28,14 @@ struct ContentView: View {
                 TextField("Username", text: $username)
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
-
                 SecureField("Password", text: $password)
                     .padding()
                     .textFieldStyle(RoundedBorderTextFieldStyle())
 
                 HStack {
                     Button("Sign In") {
-                        // Implement sign-in logic
-                        print("Signing In...")
-                        isSignInActive = true
+                        sendSignInDataToBackend()
+                        UserData.username = username;
                     }
                     .padding()
                     .foregroundColor(.white)
@@ -61,8 +63,55 @@ struct ContentView: View {
             }
             .navigationBarHidden(true)
         }
+    
+    
+    func sendSignInDataToBackend() {
+        guard let url = URL(string: "http://localhost:4000/login") else {
+            print("Invalid URL")
+            return
+        }
         
+        let userData = [
+            "username": username,
+            "password": password
+        ]
+        
+    
+        
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: userData) else {
+            print("Error serializing JSON")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                print("Response status code: \(response.statusCode)")
+            }
+            
+            if let data = data {
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("Response data: \(responseString)")
+                    if responseString == "True" {
+                        isSignInActive = true
+                    }
+                }
+            }
+        }.resume()
     }
+    
+}
+        
+    
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

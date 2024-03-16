@@ -14,7 +14,6 @@ struct SignUpView: View {
     @State private var firstName: String = ""
     @State private var lastName: String = ""
     @State private var username: String = ""
-    @State private var email: String = ""
     @State private var password: String = ""
     @State private var confirmPassword: String = ""
     @State private var errorMessage: String? = nil
@@ -41,15 +40,9 @@ struct SignUpView: View {
         }
         .contentShape(Rectangle())
 
-        // Username, Email, Password section
+        // Username, Password section
         VStack(spacing: 8) { // Add spacing between fields
           TextField("Username", text: $username)
-            .padding()
-            .background(Color.gray.opacity(0.2))
-            .cornerRadius(8)
-
-          TextField("Email", text: $email)
-            .keyboardType(.emailAddress)
             .padding()
             .background(Color.gray.opacity(0.2))
             .cornerRadius(8)
@@ -65,7 +58,7 @@ struct SignUpView: View {
             .cornerRadius(8)
         }
 
-          // Error message 
+          // Error message
           if let errorMessage = errorMessage {
             Text(errorMessage)
               .foregroundColor(.red)
@@ -75,6 +68,8 @@ struct SignUpView: View {
 
         Button("Sign Up") {
           handleSignUp()
+            presentationMode.wrappedValue.dismiss()
+
         }
         .padding()
         .foregroundColor(.white)
@@ -107,18 +102,8 @@ struct SignUpView: View {
         errorMessage = "Username cannot be empty"
         return false
       }
-      if email.isEmpty {
-        errorMessage = "Email cannot be empty"
-        return false
-      } else if !email.isValidEmail() { // Add function to check valid email format
-        errorMessage = "Invalid email format"
-        return false
-      }
       if password.isEmpty {
         errorMessage = "Password cannot be empty"
-        return false
-      } else if password.count < 6 {
-        errorMessage = "Password must be at least 6 characters"
         return false
       }
       if confirmPassword != password {
@@ -130,16 +115,49 @@ struct SignUpView: View {
     }
 
     private func handleSignUp() {
-      // 1. Call backend API
-      print("Sign Up logic needs to be implemented")
+      sendSignUpDataToBackend()
+    }
+    
+    func sendSignUpDataToBackend() {
+        guard let url = URL(string: "http://localhost:4000/set_user") else {
+            print("Invalid URL")
+            return
+        }
+        
+        let userData = [
+            "name_first": firstName,
+            "name_last": lastName,
+            "username": username,
+            "password": password
+        ]
+        
+    
+        
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: userData) else {
+            print("Error serializing JSON")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                print("Response status code: \(response.statusCode)")
+            }
+            
+            if let data = data {
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("Response data: \(responseString)")
+                }
+            }
+        }.resume()
     }
   }
-
-// Add an extension to String to check valid email format
-extension String {
-  func isValidEmail() -> Bool {
-    let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-    let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-    return emailTest.evaluate(with: self)
-  }
-}

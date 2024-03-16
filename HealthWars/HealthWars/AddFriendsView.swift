@@ -16,31 +16,25 @@ struct AddFriendsView: View {
     
 
     
-//    init(friendsModel: FriendsModel) {
-//        self.friendsModel = friendsModel
-//        //_nextRank = State(initialValue: friendsModel.maxRank + 1) // Fix this line?
-//    }
-
-    
     // Replace possibleFriends with actual backend data instead of hardcore
   let possibleFriends: [Player] = [
-    Player(name: "Charlie", steps: 12542, screen_time: 0.9),
-    Player(name: "Olivia", steps: 10890, screen_time: 1.6),
-    Player(name: "Liam", steps: 9745, screen_time: 2.1),
-    Player(name: "Sophia", steps: 8602, screen_time: 2.4),
-    Player(name: "Noah", steps: 7511, screen_time: 3.2),
-
-    Player(name: "Mia", steps: 6423, screen_time: 3.8),
-    Player(name: "William", steps: 13215, screen_time: 0.4),
-    Player(name: "Ava", steps: 11583, screen_time: 1.0),
-    Player(name: "James", steps: 10432, screen_time: 1.7),
-    Player(name: "Isabella", steps: 9289, screen_time: 2.2),
-
-    Player(name: "Benjamin", steps: 8198, screen_time: 2.9),
-    Player(name: "Charlotte", steps: 7109, screen_time: 3.5),
-    Player(name: "Lucas", steps: 14023, screen_time: 0.2),
-    Player(name: "Amelia", steps: 12391, screen_time: 0.7),
-    Player(name: "Mason", steps: 11240, screen_time: 1.4),
+    Player(name: "Emily", points: 80),
+    Player(name: "David", points: 120),
+    Player(name: "Sophia", points: 170),
+    Player(name: "Ethan", points: 190),
+    Player(name: "Olivia", points: 110),
+    Player(name: "Michael", points: 130),
+    Player(name: "Emma", points: 180),
+    Player(name: "Alexander", points: 140),
+    Player(name: "Ava", points: 160),
+    Player(name: "James", points: 220),
+    Player(name: "Isabella", points: 90),
+    Player(name: "William", points: 250),
+    Player(name: "Charlotte", points: 200),
+    Player(name: "Daniel", points: 270),
+    Player(name: "Mia", points: 120),
+    Player(name: "Benjamin", points: 300),
+    Player(name: "Sophie", points: 210)
   ]
     
     
@@ -69,6 +63,18 @@ struct AddFriendsView: View {
           HStack {
             TextField("Search...", text: $searchText)
               .padding(.horizontal)
+              
+            Button(action: {
+                let player = Player(name: searchText, points: 70)
+                friendsModel.friends.append(player);
+                refreshView.toggle(); // Trigger refresh
+                sendAddFriendDataToBackend(friend: searchText);
+                
+                
+            }) {
+                Text("Add")
+                    .foregroundColor(.blue)
+            }
 
             Button(action: {
               // Clear search text on button click
@@ -100,6 +106,7 @@ struct AddFriendsView: View {
                                   Button(action: {
                                       friendsModel.friends.append(friend)
                                       refreshView.toggle() // Trigger refresh
+                                      
                                   }) {
                                       Text("Add")
                                           .foregroundColor(.blue)
@@ -133,6 +140,49 @@ struct AddFriendsView: View {
           // triggering the view refresh
       }
   }
+    
+    
+    
+    func sendAddFriendDataToBackend(friend: String) {
+        guard let url = URL(string: "http://localhost:4000/set_friend") else {
+            print("Invalid URL")
+            return
+        }
+        
+        let userData = [
+            "user_name1": UserData.username,
+            "user_name2": friend
+        ] as [String : Any]
+        
+    
+        
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: userData) else {
+            print("Error serializing JSON")
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+            if let error = error {
+                print("Error: \(error.localizedDescription)")
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse {
+                print("Response status code: \(response.statusCode)")
+            }
+            
+            if let data = data {
+                if let responseString = String(data: data, encoding: .utf8) {
+                    print("Response data: \(responseString)")
+                }
+            }
+        }.resume()
+    }
 }
 
 struct AddFriendsView_Previews: PreviewProvider {
